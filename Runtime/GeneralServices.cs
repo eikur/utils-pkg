@@ -23,7 +23,7 @@ public class GeneralServices : Service
 
         foreach(Service service in instantiatedServices)
         {
-            service.OnAllServicesInitialized();
+            service.OnAllInitialized();
         }
     }
 
@@ -32,12 +32,18 @@ public class GeneralServices : Service
     }
 }
 
+public interface IInitializable
+{
+    void Initialize();
+    void OnAllInitialized();
+}
+
 [Serializable]
-public abstract class Service : ScriptableObject, IDisposable
+public abstract class Service : ScriptableObject, IInitializable, IDisposable
 {
     public abstract void AddToContainer(IServiceContainer container);
     public virtual void Initialize() { }
-    public virtual void OnAllServicesInitialized() { }
+    public virtual void OnAllInitialized() { }
     public virtual void Dispose() { }
 }
 

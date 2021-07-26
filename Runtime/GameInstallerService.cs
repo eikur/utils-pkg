@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GameManagersService", menuName = "Services/GameManagersService")]
-public class GameManagersService : Service
+[CreateAssetMenu(fileName = "GameInstallerService", menuName = "Services/GameInstallerService")]
+public class GameInstallerService : Service
 {
-    [SerializeField] private BaseGameManagers _baseGameManagers;
+    [SerializeField] private BaseGameInstaller _baseGameInstaller;
     List<IGameManager> _gameManagerList;
 
     public override void AddToContainer(IServiceContainer container)
     {
-        container.Register<GameManagersService>(this);
+        container.Register<GameInstallerService>(this);
         container.Register<Service>(this);
         container.Register<IDisposable>(this);
 
-        _baseGameManagers.Install(container);
+        _baseGameInstaller.Install(container);
 
         _gameManagerList = container.ResolveList<IGameManager>();
     }
@@ -27,11 +27,11 @@ public class GameManagersService : Service
         }
     }
 
-    public override void OnAllServicesInitialized()
+    public override void OnAllInitialized()
     {
         foreach (var gameManager in _gameManagerList)
         {
-            gameManager.OnAllServicesInitialized();
+            gameManager.OnAllInitialized();
         }
         OnAllManagersInitialized();
     }
@@ -54,15 +54,13 @@ public class GameManagersService : Service
 }
 
 [Serializable]
-public abstract class BaseGameManagers : ScriptableObject
+public abstract class BaseGameInstaller : ScriptableObject
 {
     public abstract void Install(IServiceContainer container);
 }
 
-public interface IGameManager
+public interface IGameManager : IInitializable
 {
-    void Initialize();
-    void OnAllServicesInitialized();
     void OnAllManagersInitialized();
     void Dispose();
 }

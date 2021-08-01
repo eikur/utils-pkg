@@ -17,6 +17,10 @@ public class Services : MonoBehaviour, IServiceContainer
         }
 
         _generalServices.AddToContainer(this);
+        foreach(var initializable in ResolveList<IInitializable>())
+        {
+            initializable.Initialize();
+        }
 
         _initialized = true;
     }

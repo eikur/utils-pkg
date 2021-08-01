@@ -19,19 +19,11 @@ public class GameInstallerService : Service
         _gameManagerList = container.ResolveList<IGameManager>();
     }
 
-    public override void Initialize()
+    public override void OnAllServicesInitialized()
     {
         foreach (var gameManager in _gameManagerList)
         {
             gameManager.Initialize();
-        }
-    }
-
-    public override void OnAllInitialized()
-    {
-        foreach (var gameManager in _gameManagerList)
-        {
-            gameManager.OnAllInitialized();
         }
         OnAllManagersInitialized();
     }

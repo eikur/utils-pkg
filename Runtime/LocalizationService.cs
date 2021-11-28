@@ -20,8 +20,7 @@ public class LocalizationService : Service
 
     public override void AddToContainer(IServiceContainer container)
     {
-        var localizationService = ScriptableObject.CreateInstance<LocalizationService>();
-        localizationService._currentLanguage = _currentLanguage;
+        var localizationService = Instantiate(this) as LocalizationService;
         container.Register<LocalizationService>(localizationService);
         container.Register<Service>(localizationService);
         container.Register<IDisposable>(localizationService);

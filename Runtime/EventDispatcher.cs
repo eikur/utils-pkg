@@ -11,7 +11,7 @@ namespace Events
 
         public override void AddToContainer(IServiceContainer container)
         {
-            var eventDispatcher = ScriptableObject.CreateInstance<EventDispatcher>();
+            var eventDispatcher = Instantiate(this) as EventDispatcher;
             container.Register<EventDispatcher>(eventDispatcher);
             container.Register<Service>(eventDispatcher);
             container.Register<IDisposable>(eventDispatcher);

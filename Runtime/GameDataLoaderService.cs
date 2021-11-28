@@ -12,8 +12,8 @@ public class GameDataLoaderService : Service
 
     public override void AddToContainer(IServiceContainer container)
     {
-        var newGameDataLoader = ScriptableObject.CreateInstance<GameDataLoaderService>();
-        newGameDataLoader._gameConfig = _gameConfig;
+        var newGameDataLoader = Instantiate(this) as GameDataLoaderService;
+        newGameDataLoader._gameConfig = _gameConfig; // change when no need to share refs
         newGameDataLoader._gameModel = _gameModel;
         container.Register<GameDataLoaderService>(newGameDataLoader);
         container.Register<Service>(newGameDataLoader);

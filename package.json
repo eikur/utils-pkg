@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "displayName": "Sorpin Utils",
   "description": "Utilities for shared services",
+  "hideInEditor": false,
   "author": {
     "name": "Jorge Soriano",
     "email": "jorge.soriano.pinedo@gmail.com"
